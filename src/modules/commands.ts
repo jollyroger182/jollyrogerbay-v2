@@ -1,12 +1,13 @@
 // "fake" slash commands
 
-import type { App } from '@slack/bolt'
+import z from 'zod'
+import { app } from '../clients'
 import commands from '../commands'
+import { defineModule } from '../utils'
 
-export default async function (app: App, config: any = {}) {
-  if (typeof config !== 'object') {
-    config = {}
-  }
+const ConfigSchema = z.object().catchall(z.boolean())
+
+export default defineModule(async function (config = {}) {
   console.debug('setting up commands with config', config)
 
   app.event('app_mention', async ({ payload }) => {
@@ -20,4 +21,4 @@ export default async function (app: App, config: any = {}) {
       await func(payload, parts.slice(2).join(' '))
     }
   })
-}
+}, ConfigSchema)

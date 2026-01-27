@@ -8,11 +8,16 @@ const config: any = (await configFile.exists())
   : {}
 console.debug('config loaded:', config)
 
-for (const [name, module] of Object.entries(modules)) {
-  const moduleConfig = config[name]
-  if (moduleConfig?.disable) continue
+for (const [name, { func, schema }] of Object.entries(modules)) {
+  const moduleConfig = config[name] ?? {}
+  if (moduleConfig === false) continue
   console.debug('setting up module', name)
-  await module(app, moduleConfig)
+  try {
+    const config = schema.parse(moduleConfig)
+    await func(config as any)
+  } catch (e) {
+    console.error('failed to set up module', name, e)
+  }
 }
 
 await app.start()
