@@ -1,3 +1,5 @@
-import commands from "./commands";
+import commands from './commands'
 
-export default [commands]
+export default {
+  commands,
+}
