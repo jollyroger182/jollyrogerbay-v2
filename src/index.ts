@@ -1,11 +1,9 @@
-import { App } from "@slack/bolt"
+import { app } from './clients'
+import modules from './modules'
 
-const app = new App({
-  signingSecret: process.env.SLACK_SIGNING_SECRET,
-  appToken: process.env.SLACK_APP_TOKEN,
-  token: process.env.SLACK_BOT_TOKEN,
-  socketMode: true
-})
+for (const module of modules) {
+  await module(app)
+}
 
 await app.start()
 
