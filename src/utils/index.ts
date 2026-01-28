@@ -10,3 +10,11 @@ export function defineModule<T>(
 export function maybePing(userId: string) {
   return userId === process.env.SLACK_OWNER ? '<YOU>' : `<@${userId}>`
 }
+
+export function getUserIdFromMention(mention: string) {
+  const match = mention.match(/^<@([A-Z0-9]+)(?:\|.*)?>$/)
+  if (match) {
+    return match[1]!
+  }
+  return mention
+}
