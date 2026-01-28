@@ -6,3 +6,7 @@ export function defineModule<T>(
 ) {
   return { func, schema }
 }
+
+export function maybePing(userId: string) {
+  return userId === process.env.SLACK_OWNER ? '<YOU>' : `<@${userId}>`
+}

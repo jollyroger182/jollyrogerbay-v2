@@ -1,5 +1,6 @@
 import { app } from './clients'
 import modules from './modules'
+import { LOG } from './modules/log'
 
 console.debug('loading config file')
 const configFile = Bun.file(process.env.CONFIG_FILE || 'config.yaml')
@@ -23,3 +24,5 @@ for (const [name, { func, schema }] of Object.entries(modules)) {
 await app.start()
 
 console.log('jollyrogerbay has started at', new Date(), ':3')
+
+await LOG.info('i am awake!')

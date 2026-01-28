@@ -3,7 +3,8 @@
 import z from 'zod'
 import { app } from '../clients'
 import commands from '../commands'
-import { defineModule } from '../utils'
+import { defineModule, maybePing } from '../utils'
+import { LOG } from './log'
 
 const ConfigSchema = z.object({
   permissions: z
@@ -16,8 +17,6 @@ const ConfigSchema = z.object({
 })
 
 export default defineModule(async function (config) {
-  console.debug('setting up commands with config', config)
-
   app.event('app_mention', async ({ payload }) => {
     if (payload.subtype || !payload.user) return
 
@@ -25,7 +24,7 @@ export default defineModule(async function (config) {
     let command = parts[1]
     if (!command || !command.startsWith('/')) return
     command = command.substring(1)
-    console.debug(
+    console.info(
       'command',
       command,
       'executed by',
@@ -34,6 +33,9 @@ export default defineModule(async function (config) {
       payload.channel,
       '-',
       payload.text,
+    )
+    LOG.info(
+      `command executed by ${maybePing(payload.user)} in <#${payload.channel}>\n\`\`\`\n${payload.text}\n\`\`\``,
     )
 
     if (!(config.commands?.[command] ?? true)) return
