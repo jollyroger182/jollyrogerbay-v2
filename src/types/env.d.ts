@@ -12,7 +12,6 @@ module 'bun' {
     HACKCLUB_AI_KEY: string
 
     STEAM_API_KEY: string
-    STEAM_USER_ID: string
 
     CONFIG_FILE?: string
   }

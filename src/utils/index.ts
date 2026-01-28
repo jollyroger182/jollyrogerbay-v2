@@ -8,7 +8,7 @@ export function defineModule<T>(
 }
 
 export function maybePing(userId: string) {
-  return userId === process.env.SLACK_OWNER ? '<YOU>' : `<@${userId}>`
+  return userId === process.env.SLACK_OWNER ? 'jolly' : `<@${userId}>`
 }
 
 export function getUserIdFromMention(mention: string) {
