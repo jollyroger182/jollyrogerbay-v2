@@ -3,6 +3,7 @@ import goodbye from './goodbye'
 import log from './log'
 import logger from './logger'
 import slash from './slash'
+import steam from './steam'
 
 export default {
   commands,
@@ -10,4 +11,5 @@ export default {
   log,
   logger,
   slash,
+  steam,
 }
