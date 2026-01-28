@@ -9,7 +9,7 @@ const config: any = (await configFile.exists())
 console.debug('config loaded:', config)
 
 for (const [name, { func, schema }] of Object.entries(modules)) {
-  const moduleConfig = config[name] ?? {}
+  const moduleConfig = name in config ? (config[name] ?? {}) : false
   if (moduleConfig === false) continue
   console.debug('setting up module', name)
   try {

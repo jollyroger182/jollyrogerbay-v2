@@ -18,9 +18,12 @@ export default defineModule(async function (
     })
   }
   if (subtypes.length) {
-    app.event('message', async ({body, payload}) => {
+    app.event('message', async ({ body, payload }) => {
       if (!subtypes.includes(payload.subtype || null)) return
-      console.log(`message.${payload.subtype} received:`, JSON.stringify(payload))
+      console.log(
+        `message.${payload.subtype} received:`,
+        JSON.stringify(payload),
+      )
     })
   }
 }, ConfigSchema)
