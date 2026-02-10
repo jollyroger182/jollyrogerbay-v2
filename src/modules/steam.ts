@@ -55,7 +55,7 @@ async function checkSteam() {
           const gameName = player.gameextrainfo || 'Unknown game'
           text = `${maybePing(user)} is now playing: <https://store.steampowered.com/app/${currentGame}/|${gameName}>!`
         } else {
-          text = `${maybePing(user)}} stopped playing games!`
+          text = `${maybePing(user)} stopped playing games!`
         }
         await Promise.all([
           app.client.chat.postMessage({ channel, text }),
